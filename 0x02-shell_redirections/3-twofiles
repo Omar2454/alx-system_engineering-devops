@@ -1,2 +1,2 @@
 #!/bin/bash
-echo "Best School" > \\\*\\\\"'\"Best School\"\\'"\\\\\*\$\\\?\\\*\\\*\\\*\\\*\\\*\:\)
+cat /etc/passwd /etc/hosts
