@@ -1,2 +1,2 @@
 #!/bin/bash
-echo "Hello, World"
+find -mindepth 1 -type d | wc -l
