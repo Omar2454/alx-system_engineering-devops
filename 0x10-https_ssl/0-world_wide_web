@@ -2,15 +2,36 @@
 # Takes a subdomain and a domain and returns information about the subdomain
 
 print_info () {
-    dig "$1" | grep -A1 'ANSWER SECTION:' | sed -r "s/$1./$2/g" | awk -F" " ' NR==2 { print "The subdomain " $1 " is a " $4 " record and points to " $5 }'
+    # Use dig and grep to get information about the subdomain
+    local result
+    result=$(dig "$1" | grep -A1 'ANSWER SECTION:') || { echo "Error: Unable to retrieve information for $1"; return 1; }
+    
+    # Extract subdomain name, record type, and destination IP address using awk
+    local subdomain_info
+    subdomain_info=$(echo "$result" | awk -F'[ .]' 'NR==2 { subdomain=$1; type=$4; ip=$5; print "The subdomain " subdomain " is a " type " record and points to " ip }') || { echo "Error: Unable to process information for $1"; return 1; }
+    
+    # Print the information
+    echo "$subdomain_info"
 }
 
-if [ "$#" -eq 2 ]
-then
-    print_info "$2.$1" "$2"
+# Validate the number of arguments
+if [ "$#" -eq 2 ]; then
+    # Validate non-empty domain and subdomain arguments
+    if [ -z "$1" ] || [ -z "$2" ]; then
+        echo "Error: Domain and subdomain cannot be empty"
+        exit 1
+    fi
+    # Display information for the specified subdomain
+    print_info "$2.$1"
 else
-    print_info "www.$1" "www"
-    print_info "lb-01.$1" "lb-01"
-    print_info "web-01.$1" "web-01"
-    print_info "web-02.$1" "web-02"
+    # Validate non-empty domain argument
+    if [ -z "$1" ]; then
+        echo "Error: Domain cannot be empty"
+        exit 1
+    fi
+    # Display information for default subdomains
+    print_info "www.$1"
+    print_info "lb-01.$1"
+    print_info "web-01.$1"
+    print_info "web-02.$1"
 fi
