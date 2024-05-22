@@ -19,12 +19,16 @@ if __name__ == '__main__':
 
         try:
             # Fetch employee details
-            user_response = requests.get(f'{REST_API}/users/{employee_id}')
+            user_response = requests.get(
+                f'{REST_API}/users/{employee_id}'
+            )
             user_response.raise_for_status()
             user_data = user_response.json()
 
             # Fetch employee tasks
-            tasks_response = requests.get(f'{REST_API}/todos?userId={employee_id}')
+            tasks_response = requests.get(
+                f'{REST_API}/todos?userId={employee_id}'
+            )
             tasks_response.raise_for_status()
             tasks_data = tasks_response.json()
 
@@ -33,11 +37,16 @@ if __name__ == '__main__':
 
             # Filter tasks
             total_tasks = len(tasks_data)
-            completed_tasks = [task for task in tasks_data if task.get('completed')]
+            completed_tasks = [
+                task for task in tasks_data if task.get('completed')
+            ]
             number_of_completed_tasks = len(completed_tasks)
 
             # Display results
-            print(f'Employee {emp_name} is done with tasks({number_of_completed_tasks}/{total_tasks}):')
+            print(
+                f'Employee {emp_name} is done with tasks('
+                f'{number_of_completed_tasks}/{total_tasks}):'
+            )
             for task in completed_tasks:
                 print(f'\t {task.get("title")}')
 
