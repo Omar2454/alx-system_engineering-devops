@@ -1,6 +1,6 @@
 #!/usr/bin/python3
 '''
-gather employee data from API
+Gather employee data from API
 '''
 
 import re
@@ -32,8 +32,10 @@ if __name__ == '__main__':
             tasks_response.raise_for_status()
             tasks_data = tasks_response.json()
 
-            # Extract employee name
+            # Extract employee name and adjust its length if needed
             emp_name = user_data.get('name')
+            if len(emp_name) > 18:
+                emp_name = emp_name[:18]  # Truncate name to 18 characters
 
             # Filter tasks
             total_tasks = len(tasks_data)
