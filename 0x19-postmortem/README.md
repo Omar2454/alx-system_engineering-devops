@@ -40,7 +40,6 @@
 3. Restarted the load balancer to apply changes.
 4. Monitored to ensure the fix was effective and no further issues were present.
 
-![Diagram of Incident Resolution](https://example.com/incident-resolution-diagram.jpg)
 
 ## Corrective and Preventative Measures
 **Improvements/Fixes**:
