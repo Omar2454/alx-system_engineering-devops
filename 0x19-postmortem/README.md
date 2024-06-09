@@ -1,6 +1,6 @@
 # Postmortem: The Case of the Infinite Loop
 
-![Infinite Loop](https://example.com/infinite-loop.jpg)
+![Infinite Loop](https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.sciencefocus.com%2Fscience%2Fgetting-lost-in-infinite-loops&psig=AOvVaw0UgrhGa5OqOOOM9E6s4bpP&ust=1718027278435000&source=images&cd=vfe&opi=89978449&ved=0CBIQjRxqFwoTCID7wcDUzoYDFQAAAAAdAAAAABAE)
 
 ## Table of Contents
 - [Issue Summary](#issue-summary)
