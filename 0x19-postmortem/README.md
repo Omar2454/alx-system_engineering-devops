@@ -1,43 +1,58 @@
-# Postmortem
+# Postmortem: The Case of the Infinite Loop
 
-Postmortem: The Case of the Infinite Loop
-Issue Summary
-Duration of Outage: June 8, 2024, 14:00 - June 8, 2024, 16:00 (UTC)
-Impact: The main web application service was down, leaving users staring at an endless loading screen. About 80% of users were affected, experiencing extreme frustration and perhaps reconsidering their life choices.
-Root Cause: The culprit was a misconfiguration in the load balancer, resulting in an infinite loop of redirects. Yes, we essentially turned our load balancer into a merry-go-round.
+![Infinite Loop](https://example.com/infinite-loop.jpg)
 
-Timeline
-14:00: Monitoring alert screams, "The site is down!" Engineers collectively groan.
-14:05: Verification of the issue by an engineer who notes the site is indeed doing a fine impression of a black hole.
-14:10: Initial assumption: “Must be the servers!” – Investigation into the application servers begins.
-14:30: Servers appear innocent. The database is the next suspect but is found healthy and alibi-strong.
-14:45: “This needs escalation!” The network operations team is called in.
-15:00: Network team detects unusual traffic patterns, suspects foul play in the load balancer.
-15:15: Discovery of the mischievous redirect loop in the load balancer settings.
-15:30: Misconfiguration fixed, and the load balancer gets a reboot.
-15:45: Site is back up, users breathe a sigh of relief (or maybe just us).
-16:00: Issue declared resolved, engineers finally get their coffee.
-Root Cause and Resolution
-Root Cause: Our load balancer was misconfigured to perpetuate an endless cycle of redirects, causing HTTP 502 errors. Picture it like a hamster wheel, but for network traffic. This was a result of a recent change intended to optimize traffic distribution but instead optimized our stress levels.
+## Table of Contents
+- [Issue Summary](#issue-summary)
+- [Timeline](#timeline)
+- [Root Cause and Resolution](#root-cause-and-resolution)
+- [Corrective and Preventative Measures](#corrective-and-preventative-measures)
 
-Resolution: We stopped the redirect madness by:
+## Issue Summary
+**Duration of Outage**: June 8, 2024, 14:00 - June 8, 2024, 16:00 (UTC)
 
-Accessing the load balancer’s configuration.
-Identifying and correcting the looping redirect rules.
-Restarting the load balancer to clear its confusion.
-Monitoring to ensure the fix was effective and everything was back to normal (no more merry-go-rounds).
-Corrective and Preventative Measures
-Improvements/Fixes:
+**Impact**: 
+- The main web application service was down.
+- Approximately 80% of users experienced service disruption, leading to frustration and potentially life-altering reconsiderations.
 
-Configuration Review: Implement a thorough review process for load balancer configurations. No more rogue redirects on our watch!
-Monitoring Enhancements: Add specific alerts for unusual traffic patterns indicative of configuration loops. Think of it as a smoke alarm for our load balancer.
-Documentation: Improve and update documentation on load balancer configurations with a big, bold “DO NOT CREATE LOOPS” section.
-Task List:
+**Root Cause**: 
+- A misconfiguration in the load balancer caused an infinite loop of redirects, effectively turning it into a digital merry-go-round.
 
-Patch Load Balancer Configuration: Double-check and ensure no residual misconfigurations exist.
-Add Monitoring: Set up enhanced monitoring for redirect patterns and load balancer health.
-Conduct Training: Organize training for engineers on the dos and don’ts of load balancer configurations. Offer donuts as an incentive.
-Review Process: Establish a peer-review process for critical configuration changes. Two heads are better than one, especially when preventing infinite loops.
-Incident Response Plan: Update our incident response plan to quickly identify and resolve load balancer issues in the future.
+## Timeline
+- **14:00**: Issue detected via monitoring alert indicating high response times and increased error rates. Engineers collectively groan.
+- **14:05**: Verification of the issue by an engineer noting an unusual number of HTTP 502 errors. 
+- **14:10**: Initial investigation focuses on application servers, suspecting a deployment issue.
+- **14:30**: Servers cleared of suspicion; investigation shifts to the database, which also proves innocent.
+- **14:45**: Escalation to the network operations team after ruling out server and database issues.
+- **15:00**: Network team identifies unusual traffic patterns suggesting a load balancer issue.
+- **15:15**: Discovery of misconfigured redirect rules causing infinite loops in the load balancer.
+- **15:30**: Configuration corrected, and load balancer restarted. 
+- **15:45**: Service verified as restored and stable.
+- **16:00**: Issue officially resolved.
 
-By implementing these measures, we aim to prevent future incidents and ensure our systems are as resilient as our engineers’ coffee addictions. Failing is an opportunity to learn – just make sure you don't loop back to fail again.
+## Root Cause and Resolution
+**Root Cause**:
+- The load balancer was misconfigured to create an infinite redirect loop. This resulted from a recent change aimed at optimizing traffic distribution but inadvertently led to a digital hamster wheel scenario.
+
+**Resolution**:
+1. Accessed the load balancer’s management console.
+2. Identified and corrected the misconfigured redirect rules.
+3. Restarted the load balancer to apply changes.
+4. Monitored to ensure the fix was effective and no further issues were present.
+
+![Diagram of Incident Resolution](https://example.com/incident-resolution-diagram.jpg)
+
+## Corrective and Preventative Measures
+**Improvements/Fixes**:
+1. **Configuration Review**: Implement a thorough review process for load balancer configurations to prevent future mishaps.
+2. **Monitoring Enhancements**: Add specific alerts for unusual traffic patterns that could indicate configuration issues.
+3. **Documentation**: Update documentation with clear guidelines on configuring load balancers, highlighting the potential pitfalls.
+
+**Task List**:
+1. **Patch Load Balancer Configuration**: Ensure the current configuration is correct and stable.
+2. **Add Monitoring**: Implement enhanced monitoring for redirect patterns and load balancer health.
+3. **Conduct Training**: Organize training sessions for engineers on best practices for load balancer configurations.
+4. **Review Process**: Establish a peer-review process for all critical configuration changes.
+5. **Incident Response Plan**: Update the incident response plan to include steps for quickly identifying and resolving load balancer-related issues.
+
+By implementing these measures, we aim to prevent future incidents and ensure our systems are as resilient as our engineers’ coffee addictions. Remember, failing is an opportunity to learn – just make sure you don't loop back to fail again.
